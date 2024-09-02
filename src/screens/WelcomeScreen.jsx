@@ -6,10 +6,12 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import Animated, { useSharedValue, withSpring } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomeScreen() {
   const ring1Padding = useSharedValue(0);
   const ring2Padding = useSharedValue(0);
+  const navigation = useNavigation();
 
   useEffect(() => {
     ring1Padding.value = 0;
@@ -20,6 +22,32 @@ export default function WelcomeScreen() {
     setTimeout(() => {
       ring2Padding.value = withSpring(ring2Padding.value + hp(5));
     }, 200);
+
+    setTimeout(() => {
+      ring1Padding.value = withSpring(ring1Padding.value + hp(5.2));
+    }, 110);
+    setTimeout(() => {
+      ring2Padding.value = withSpring(ring2Padding.value + hp(5.2));
+    }, 210);
+
+    setTimeout(() => {
+      ring1Padding.value = withSpring(ring1Padding.value + hp(4.8));
+    }, 130);
+    setTimeout(() => {
+      ring2Padding.value = withSpring(ring2Padding.value + hp(4.8));
+    }, 230);
+
+    setTimeout(() => {
+      ring1Padding.value = withSpring(ring1Padding.value + hp(5));
+    }, 140);
+    setTimeout(() => {
+      ring2Padding.value = withSpring(ring2Padding.value + hp(5));
+    }, 240);
+
+    // Redirect to Home page
+    setTimeout(() => {
+      navigation.navigate("Home");
+    }, 2500);
   }, []);
 
   return (

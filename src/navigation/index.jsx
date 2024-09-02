@@ -6,13 +6,7 @@ import { useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
-export default function Navigation({ navigation }) {
-  useEffect(() => {
-    setTimeout(() => {
-      //   navigation.navigate("Home");
-    }, 1000);
-  }, []);
-
+export default function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
