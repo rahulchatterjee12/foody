@@ -5,6 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import Animated, { FadeInDown } from "react-native-reanimated";
+import { CachedImage } from "../helper/image";
 
 export default function Category({
   categories,
@@ -31,8 +32,8 @@ export default function Category({
               onPress={() => setActiveCategory(cat.strCategory)}
             >
               <View className={`rounded-full p-[6px] ${activeButtonClass}`}>
-                <Image
-                  source={{ uri: cat.strCategoryThumb }}
+                <CachedImage
+                  uri={cat.strCategoryThumb}
                   style={{
                     height: hp(6),
                     width: hp(6),

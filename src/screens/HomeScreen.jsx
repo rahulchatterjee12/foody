@@ -10,6 +10,7 @@ import axios from "axios";
 export function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState("Beef");
   const [categories, setCategories] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   const getCategories = async () => {
     try {
@@ -24,9 +25,26 @@ export function HomeScreen() {
     }
   };
 
+  const getRecipes = async () => {
+    try {
+      const response = await axios.get(
+        `https://themealdb.com/api/json/v1/1/filter.php?c=${activeCategory}`
+      );
+      if (response && response.data) {
+        setRecipes(response.data.meals);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getCategories();
   }, []);
+
+  useEffect(() => {
+    getRecipes();
+  }, [activeCategory]);
 
   return (
     <View className="flex-1 bg-white">
@@ -99,16 +117,17 @@ export function HomeScreen() {
 
         {/* Category Section */}
         <View>
-          <Category
-            categories={categories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
-          />
+          {categories.length > 1 && (
+            <Category
+              categories={categories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+            />
+          )}
         </View>
-
         {/* Recipes Section */}
         <View>
-          <Recipes />
+          <Recipes categories={categories} recipes={recipes} />
         </View>
       </ScrollView>
     </View>
